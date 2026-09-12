@@ -1,0 +1,156 @@
+# Copyright (C) 2026 Marios Giannopoulos
+# This file is distributed under the GPL-3.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Serif ReadTime & Font Control 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/serif-readtime-font-control\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-12T15:58:49+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: serif-readtime-font-control\n"
+
+#. Plugin Name of the plugin
+#: serif-readtime-font-control.php
+msgid "Serif ReadTime & Font Control"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: serif-readtime-font-control.php
+msgid "https://github.com/mgiannopoulos24/serif-readtime-font-control"
+msgstr ""
+
+#. Description of the plugin
+#: serif-readtime-font-control.php
+msgid "A \"minutes to read\" block and an accessible floating reading-controls widget (text size, line height, contrast) that remembers the reader's choices."
+msgstr ""
+
+#. Author of the plugin
+#: serif-readtime-font-control.php
+msgid "Marios Giannopoulos"
+msgstr ""
+
+#. Author URI of the plugin
+#: serif-readtime-font-control.php
+msgid "https://github.com/mgiannopoulos24"
+msgstr ""
+
+#: blocks/read-time/render.php:40
+msgid "Under a minute"
+msgstr ""
+
+#. translators: %s: number of minutes.
+#: blocks/read-time/render.php:43
+#, php-format
+msgid "%s min read"
+msgid_plural "%s min read"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/font-control.php:35
+msgid "Default"
+msgstr ""
+
+#: includes/font-control.php:36
+msgid "High contrast"
+msgstr ""
+
+#: includes/font-control.php:37
+msgid "Sepia"
+msgstr ""
+
+#: includes/font-control.php:96
+#: includes/font-control.php:128
+#: includes/font-control.php:129
+msgid "Text size"
+msgstr ""
+
+#: includes/font-control.php:114
+#: includes/font-control.php:117
+#: includes/font-control.php:122
+#: includes/settings.php:49
+msgid "Reading controls"
+msgstr ""
+
+#: includes/font-control.php:123
+msgid "Close reading controls"
+msgstr ""
+
+#: includes/font-control.php:131
+msgid "Decrease text size"
+msgstr ""
+
+#: includes/font-control.php:135
+msgid "Increase text size"
+msgstr ""
+
+#: includes/font-control.php:141
+#: includes/font-control.php:144
+msgid "Line height"
+msgstr ""
+
+#: includes/font-control.php:153
+#: includes/font-control.php:154
+msgid "Contrast"
+msgstr ""
+
+#: includes/font-control.php:164
+msgid "Reset"
+msgstr ""
+
+#: includes/settings.php:55
+msgid "Show the floating text size / line height / contrast widget"
+msgstr ""
+
+#: includes/settings.php:56
+msgid "Readers’ choices are stored in their browser only."
+msgstr ""
+
+#: blocks/read-time/editor.js:22
+msgid "Reading time"
+msgstr ""
+
+#: blocks/read-time/editor.js:24
+msgid "Show clock icon"
+msgstr ""
+
+#: blocks/read-time/editor.js:29
+msgid "Label before the time"
+msgstr ""
+
+#: blocks/read-time/editor.js:31
+msgid "e.g. Reading time:"
+msgstr ""
+
+#: blocks/read-time/editor.js:35
+msgid "Words per minute"
+msgstr ""
+
+#: blocks/read-time/block.json
+msgctxt "block title"
+msgid "Reading Time"
+msgstr ""
+
+#: blocks/read-time/block.json
+msgctxt "block description"
+msgid "Estimated minutes to read the current post."
+msgstr ""
+
+#: blocks/read-time/block.json
+msgctxt "block keyword"
+msgid "read time"
+msgstr ""
+
+#: blocks/read-time/block.json
+msgctxt "block keyword"
+msgid "reading time"
+msgstr ""
+
+#: blocks/read-time/block.json
+msgctxt "block keyword"
+msgid "minutes"
+msgstr ""

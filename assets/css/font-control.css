@@ -1,0 +1,365 @@
+/**
+ * Font Control widget.
+ *
+ * Two halves:
+ *  1. The reading preferences, driven by attributes the head script / JS put
+ *     on <html>. They only touch CSS custom properties and rem-based sizing,
+ *     so they work with any block theme that uses --wp--preset--color-- vars.
+ *  2. The floating widget itself (toggle + panel).
+ */
+
+/* -------------------------------------------------------------------------
+ * 1. Preferences applied to <html>
+ * ---------------------------------------------------------------------- */
+
+/* Text size: presets in rem/fluid-rem follow the root font size. */
+html[data-serif-font-scale] {
+	font-size: calc( 100% * var( --serif-font-scale, 1 ) );
+}
+
+/* Line height: body copy only; headings keep their own leading. */
+html[data-serif-line-height] :is( body, p, li, dd, blockquote, .wp-block-post-content ) {
+	line-height: var( --serif-line-height, 1.7 );
+}
+
+/* Contrast presets: override the palette so every block follows.
+ * html[data-…] (0,1,1) beats WordPress's :root {} (0,1,0). */
+html[data-serif-contrast="high"] {
+	--wp--preset--color--background: #000000;
+	--wp--preset--color--foreground: #ffffff;
+	--wp--preset--color--primary: #ffff00;
+	--wp--preset--color--secondary: #ffffff;
+	--wp--preset--color--muted: #e6e6e6;
+	--wp--preset--color--border: #ffffff;
+	--wp--preset--color--light: #000000;
+	--wp--preset--color--dark: #000000;
+	--wp--preset--color--accent: #00ffff;
+	--wp--preset--color--white: #ffffff;
+	--wp--preset--color--black: #000000;
+	--wp--preset--color--transparent: transparent;
+	color-scheme: dark;
+}
+
+html[data-serif-contrast="sepia"] {
+	--wp--preset--color--background: #f3e9d6;
+	--wp--preset--color--foreground: #3b2a1c;
+	--wp--preset--color--primary: #8a4a17;
+	--wp--preset--color--secondary: #5f4b38;
+	--wp--preset--color--muted: #6e5a45;
+	--wp--preset--color--border: #d9cbb3;
+	--wp--preset--color--light: #ebdfc7;
+	--wp--preset--color--dark: #2a1d12;
+	--wp--preset--color--accent: #2c5c7c;
+	--wp--preset--color--white: #ffffff;
+	--wp--preset--color--black: #000000;
+	--wp--preset--color--transparent: transparent;
+	color-scheme: light;
+}
+
+/* Fallback for themes that don't route body colours through the presets. */
+html[data-serif-contrast] body {
+	background-color: var( --wp--preset--color--background );
+	color: var( --wp--preset--color--foreground );
+}
+
+/* Yellow buttons need black text (mirrors the theme's High Contrast variation). */
+html[data-serif-contrast="high"] :is( .wp-element-button, .wp-block-button__link ) {
+	color: #000000;
+}
+
+html[data-serif-contrast="high"] a:hover {
+	color: var( --wp--preset--color--accent );
+}
+
+/* -------------------------------------------------------------------------
+ * 2. The widget
+ * ---------------------------------------------------------------------- */
+
+.serif-font-control {
+	--serif-fc-bg: var( --wp--preset--color--light, #f2ede6 );
+	--serif-fc-fg: var( --wp--preset--color--foreground, #1c1b1a );
+	--serif-fc-border: var( --wp--preset--color--border, #e5e0d9 );
+	--serif-fc-primary: var( --wp--preset--color--primary, #8b3a2a );
+	--serif-fc-on-primary: var( --wp--preset--color--background, #ffffff );
+	--serif-fc-toggle-fg: #ffffff;
+	--serif-fc-accent: var( --wp--preset--color--accent, #2f5d8a );
+	--serif-fc-radius: 6px;
+	--serif-fc-offset: 1rem;
+
+	position: fixed;
+	right: max( var( --serif-fc-offset ), env( safe-area-inset-right ) );
+	bottom: max( var( --serif-fc-offset ), env( safe-area-inset-bottom ) );
+	z-index: 900;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 0.5rem;
+	font-family: var( --wp--preset--font-family--ibm-plex-sans, system-ui, sans-serif );
+	font-size: 0.875rem;
+	line-height: 1.4;
+	color: var( --serif-fc-fg );
+}
+
+.serif-font-control .serif-rtfc-icon {
+	width: 1.25em;
+	height: 1.25em;
+	flex: none;
+	fill: currentColor;
+}
+
+/* Reset button styles inherited from the theme. */
+.serif-font-control button {
+	appearance: none;
+	margin: 0;
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+	border-radius: var( --serif-fc-radius );
+	transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.serif-font-control button:focus-visible {
+	outline: 3px solid var( --serif-fc-accent );
+	outline-offset: 2px;
+}
+
+.serif-font-control button[aria-disabled="true"] {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+
+/* Toggle ------------------------------------------------------------------ */
+
+/* Doubled class beats the generic button reset above (border-radius). */
+.serif-font-control .serif-font-control__toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	width: 48px;
+	height: 48px;
+	padding: 0;
+	background: var( --serif-fc-primary );
+	color: var( --serif-fc-toggle-fg );
+	border: 2px solid var( --serif-fc-primary );
+	border-radius: 50%;
+	box-shadow: 0 2px 8px rgba( 0, 0, 0, 0.2 );
+}
+
+/* Yellow toggle in high contrast: white would vanish, mirror the button rule. */
+html[data-serif-contrast="high"] .serif-font-control {
+	--serif-fc-toggle-fg: #000000;
+}
+
+.serif-font-control__toggle .serif-rtfc-icon {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.serif-font-control__toggle:hover,
+.serif-font-control__toggle[aria-expanded="true"] {
+	background: var( --serif-fc-fg );
+	border-color: var( --serif-fc-fg );
+	color: var( --serif-fc-toggle-fg );
+}
+
+/* Visually hidden label: the button is an icon, the text is for AT. */
+.serif-font-control__toggle-label {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect( 0 0 0 0 );
+	clip-path: inset( 50% );
+	white-space: nowrap;
+	border: 0;
+}
+
+/* Panel ------------------------------------------------------------------- */
+
+.serif-font-control__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	margin: -0.25rem -0.25rem 0 0;
+}
+
+.serif-font-control__title {
+	font-weight: 600;
+	font-size: 0.9375rem;
+}
+
+.serif-font-control__close {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	background: transparent;
+	border: 1px solid transparent;
+}
+
+.serif-font-control__close .serif-rtfc-icon {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.serif-font-control__close:hover {
+	border-color: var( --serif-fc-fg );
+}
+
+.serif-font-control__panel {
+	order: -1;
+	box-sizing: border-box;
+	width: min( 280px, calc( 100vw - 2 * var( --serif-fc-offset ) ) );
+	max-height: 80vh;
+	overflow: auto;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.875rem;
+	background: var( --serif-fc-bg );
+	color: var( --serif-fc-fg );
+	border: 1px solid var( --serif-fc-border );
+	border-radius: var( --serif-fc-radius );
+	box-shadow: 0 8px 24px rgba( 0, 0, 0, 0.18 );
+}
+
+.serif-font-control__panel[hidden] {
+	display: none;
+}
+
+.serif-font-control__row {
+	display: flex;
+	flex-direction: column;
+	gap: 0.375rem;
+}
+
+.serif-font-control__label {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.375rem;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+}
+
+/* Stepper ----------------------------------------------------------------- */
+
+.serif-font-control__stepper {
+	display: grid;
+	grid-template-columns: 44px 1fr 44px;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.serif-font-control__button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 44px;
+	min-height: 44px;
+	padding: 0;
+	background: transparent;
+	border: 1px solid var( --serif-fc-border );
+}
+
+.serif-font-control__button:not( [aria-disabled="true"] ):hover {
+	background: var( --serif-fc-primary );
+	border-color: var( --serif-fc-primary );
+	color: var( --serif-fc-on-primary );
+}
+
+.serif-font-control__value {
+	text-align: center;
+	font-variant-numeric: tabular-nums;
+	font-weight: 600;
+}
+
+/* Choice groups ----------------------------------------------------------- */
+
+.serif-font-control__choices {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.375rem;
+}
+
+.serif-font-control__choice {
+	flex: 1 1 auto;
+	min-height: 44px;
+	padding: 0.5rem 0.75rem;
+	background: transparent;
+	border: 1px solid var( --serif-fc-border );
+}
+
+.serif-font-control__choice:hover {
+	border-color: var( --serif-fc-fg );
+}
+
+.serif-font-control__choice[aria-pressed="true"] {
+	background: var( --serif-fc-primary );
+	border-color: var( --serif-fc-primary );
+	color: var( --serif-fc-on-primary );
+	font-weight: 600;
+}
+
+/* Reset ------------------------------------------------------------------- */
+
+.serif-font-control__reset {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.375rem;
+	min-height: 44px;
+	padding: 0.5rem 0.75rem;
+	background: transparent;
+	border: 1px solid transparent;
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+}
+
+.serif-font-control__reset:hover {
+	border-color: var( --serif-fc-fg );
+	text-decoration: none;
+}
+
+/* -------------------------------------------------------------------------
+ * Media / preference queries
+ * ---------------------------------------------------------------------- */
+
+@media ( prefers-reduced-motion: reduce ) {
+	.serif-font-control button {
+		transition: none;
+	}
+}
+
+@media ( forced-colors: active ) {
+	.serif-font-control__panel,
+	.serif-font-control button {
+		border-color: ButtonText;
+		box-shadow: none;
+	}
+
+	.serif-font-control__toggle {
+		forced-color-adjust: none;
+		background: ButtonFace;
+		color: ButtonText;
+	}
+
+	.serif-font-control__choice[aria-pressed="true"],
+	.serif-font-control__toggle[aria-expanded="true"] {
+		forced-color-adjust: none;
+		background: Highlight;
+		color: HighlightText;
+		border-color: Highlight;
+	}
+}
+
+@media print {
+	.serif-font-control {
+		display: none !important;
+	}
+}

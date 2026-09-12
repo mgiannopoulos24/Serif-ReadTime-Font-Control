@@ -1,0 +1,14 @@
+Serif ReadTime & Font Control — Changelog
+=========================================
+
+1.0.0 — 2026-09-12
+------------------
+* Initial release.
+* Reading Time block (serif/read-time): server-rendered "N min read" with icon, label and words-per-minute controls; Unicode-aware word count that ignores block markup, shortcodes, captions and code.
+* Font Control widget: floating reading controls for text size (80–150%), line height (1.6 / 1.8 / 2.0) and contrast (Default / High contrast / Sepia), with a close button and reset; preferences saved in the reader's browser and restored before first paint.
+* "Reading controls" setting under Settings → Reading to turn the widget off.
+* Automatic placement of the block after the post date in the Serif theme's post-meta row (Block Hooks API).
+* Filters: serif_read_time_words_per_minute, serif_read_time_text, serif_font_control_enabled, serif_font_control_config.
+* Accessibility: keyboard reachable, visible focus, aria-pressed / aria-expanded, 44px targets, reduced-motion and forced-colors support, hidden in print; zero axe violations in every widget state.
+* Translation-ready; Greek translation included.
+* PHPUnit and Playwright + axe-core test suites.

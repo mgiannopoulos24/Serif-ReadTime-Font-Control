@@ -1,0 +1,32 @@
+{
+	"name": "serif-readtime-font-control",
+	"description": "A \"minutes to read\" block and an accessible floating reading-controls widget (text size, line height, contrast) that remembers the reader's choices.",
+	"keywords": [
+		"wordpress-plugin"
+	],
+	"version": "1.0.0",
+	"scripts": {
+		"start": "wp-env start",
+		"stop": "wp-env stop",
+		"destroy": "wp-env destroy",
+		"shell": "wp-env run cli /bin/bash",
+		"seed": "wp-env run cli sh wp-content/themes/serif/scripts/seed.sh",
+		"lint": "vendor/bin/phpcs --standard=phpcs.xml .",
+		"lint:fix": "vendor/bin/phpcbf --standard=phpcs.xml .",
+		"test:unit": "vendor/bin/phpunit",
+		"test:e2e:install": "bunx playwright install chromium",
+		"test:e2e": "bunx playwright test --config tests/e2e-pw/playwright.config.ts",
+		"test:e2e:report": "bunx playwright show-report tests/e2e-pw/playwright-report",
+		"makepot": "wp-env run cli --env-cwd=/var/www/html/wp-content/plugins/serif-readtime-font-control wp i18n make-pot . languages/serif-readtime-font-control.pot --domain=serif-readtime-font-control --exclude=node_modules,vendor,tests,build,scripts",
+		"update-po": "wp-env run cli --env-cwd=/var/www/html/wp-content/plugins/serif-readtime-font-control wp i18n update-po languages/serif-readtime-font-control.pot languages/",
+		"makemo": "wp-env run cli --env-cwd=/var/www/html/wp-content/plugins/serif-readtime-font-control wp i18n make-mo languages/",
+		"makejson": "wp-env run cli --env-cwd=/var/www/html/wp-content/plugins/serif-readtime-font-control wp i18n make-json languages/ --no-purge --pretty-print",
+		"bundle": "sh scripts/bundle.sh"
+	},
+	"devDependencies": {
+		"@axe-core/playwright": "^4.13.0",
+		"@playwright/test": "^1.63.0",
+		"@wordpress/env": "^11.15.0",
+		"bestzip": "^3.1.0"
+	}
+}

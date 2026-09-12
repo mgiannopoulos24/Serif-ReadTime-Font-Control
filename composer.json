@@ -1,0 +1,32 @@
+{
+    "name": "mgiannopoulos24/serif-readtime-font-control",
+    "description": "A \"minutes to read\" block and an accessible floating reading-controls widget (text size, line height, contrast) that remembers the reader's choices.",
+    "keywords": [],
+    "version": "1.0.0",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Marios Giannopoulos",
+            "email": "mariosgian_2002@yahoo.gr",
+            "homepage": "https://github.com/mgiannopoulos24"
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.13.4",
+        "wp-coding-standards/wpcs": "^3.0",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "phpunit/phpunit": "^10.5"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "lint": "phpcs --standard=phpcs.xml .",
+        "test": "phpunit"
+    }
+}

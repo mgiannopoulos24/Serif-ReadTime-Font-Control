@@ -1,0 +1,13 @@
+.serif-read-time {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35em;
+	white-space: nowrap;
+}
+
+.serif-read-time .serif-rtfc-icon {
+	width: 1.1em;
+	height: 1.1em;
+	fill: currentColor;
+	flex: none;
+}

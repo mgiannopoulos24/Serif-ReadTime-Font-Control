@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: PHP coding standards
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+          tools: composer
+      - run: composer install --no-interaction --prefer-dist
+      - run: vendor/bin/phpcs --standard=phpcs.xml .
+
+  unit:
+    name: PHPUnit (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '8.1', '8.2', '8.3', '8.4' ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer
+      - run: composer install --no-interaction --prefer-dist
+      - run: vendor/bin/phpunit
+
+  e2e:
+    name: Playwright + axe, i18n freshness (wp-env)
+    runs-on: ubuntu-latest
+    needs: [ lint, unit ]
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: plugin
+    steps:
+      # .wp-env.json mounts the theme from ../Serif, so check both out side by side.
+      - uses: actions/checkout@v4
+        with:
+          path: plugin
+      - name: Check out the Serif theme
+        uses: actions/checkout@v4
+        with:
+          repository: mgiannopoulos24/Serif
+          path: Serif
+      - uses: oven-sh/setup-bun@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: bun install --frozen-lockfile
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('plugin/bun.lock') }}
+      - run: bunx playwright install --with-deps chromium
+      - name: Start WordPress (wp-env), activate theme + plugin, seed content
+        run: bun run start
+      - run: bun run test:e2e
+      - name: Regenerate translation files
+        run: bun run makepot && bun run update-po && bun run makemo && bun run makejson
+      - name: Fail if languages/ differs from the commit (ignoring timestamps)
+        run: |
+          git diff --exit-code -I 'POT-Creation-Date' -I 'PO-Revision-Date' -I 'translation-revision-date' -- languages || {
+            echo "::error::Translation files are stale. Run 'bun run makepot && bun run update-po && bun run makemo && bun run makejson' and commit the result."
+            exit 1
+          }
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: plugin/tests/e2e-pw/playwright-report
+          retention-days: 7
+      - name: Show WordPress debug.log
+        if: failure()
+        run: bun run wp-env run cli sh -c 'cat wp-content/debug.log 2>/dev/null || echo "no debug.log"'

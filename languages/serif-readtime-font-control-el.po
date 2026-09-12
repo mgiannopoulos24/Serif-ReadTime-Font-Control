@@ -1,0 +1,156 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Serif ReadTime & Font Control 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/serif-readtime-font-control\n"
+"Last-Translator: Marios Giannopoulos\n"
+"Language-Team: Greek\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-12T15:58:49+00:00\n"
+"PO-Revision-Date: 2026-09-12 19:00+0300\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: serif-readtime-font-control\n"
+
+#. Plugin Name of the plugin
+#: serif-readtime-font-control.php
+msgid "Serif ReadTime & Font Control"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: serif-readtime-font-control.php
+msgid "https://github.com/mgiannopoulos24/serif-readtime-font-control"
+msgstr ""
+
+#. Description of the plugin
+#: serif-readtime-font-control.php
+msgid "A \"minutes to read\" block and an accessible floating reading-controls widget (text size, line height, contrast) that remembers the reader's choices."
+msgstr "Ένα μπλοκ «λεπτά ανάγνωσης» και ένα προσβάσιμο αιωρούμενο εργαλείο ρυθμίσεων ανάγνωσης (μέγεθος κειμένου, διάστιχο, αντίθεση) που θυμάται τις επιλογές του αναγνώστη."
+
+#. Author of the plugin
+#: serif-readtime-font-control.php
+msgid "Marios Giannopoulos"
+msgstr ""
+
+#. Author URI of the plugin
+#: serif-readtime-font-control.php
+msgid "https://github.com/mgiannopoulos24"
+msgstr ""
+
+#: blocks/read-time/render.php:40
+msgid "Under a minute"
+msgstr "Λιγότερο από ένα λεπτό"
+
+#. translators: %s: number of minutes.
+#: blocks/read-time/render.php:43
+#, php-format
+msgid "%s min read"
+msgid_plural "%s min read"
+msgstr[0] "%s λεπτό ανάγνωσης"
+msgstr[1] "%s λεπτά ανάγνωσης"
+
+#: includes/font-control.php:35
+msgid "Default"
+msgstr "Προεπιλογή"
+
+#: includes/font-control.php:36
+msgid "High contrast"
+msgstr "Υψηλή αντίθεση"
+
+#: includes/font-control.php:37
+msgid "Sepia"
+msgstr "Σέπια"
+
+#: includes/font-control.php:96
+#: includes/font-control.php:128
+#: includes/font-control.php:129
+msgid "Text size"
+msgstr "Μέγεθος κειμένου"
+
+#: includes/font-control.php:114
+#: includes/font-control.php:117
+#: includes/font-control.php:122
+#: includes/settings.php:49
+msgid "Reading controls"
+msgstr "Ρυθμίσεις ανάγνωσης"
+
+#: includes/font-control.php:123
+msgid "Close reading controls"
+msgstr "Κλείσιμο ρυθμίσεων ανάγνωσης"
+
+#: includes/font-control.php:131
+msgid "Decrease text size"
+msgstr "Μείωση μεγέθους κειμένου"
+
+#: includes/font-control.php:135
+msgid "Increase text size"
+msgstr "Αύξηση μεγέθους κειμένου"
+
+#: includes/font-control.php:141
+#: includes/font-control.php:144
+msgid "Line height"
+msgstr "Διάστιχο"
+
+#: includes/font-control.php:153
+#: includes/font-control.php:154
+msgid "Contrast"
+msgstr "Αντίθεση"
+
+#: includes/font-control.php:164
+msgid "Reset"
+msgstr "Επαναφορά"
+
+#: includes/settings.php:55
+msgid "Show the floating text size / line height / contrast widget"
+msgstr "Εμφάνιση του αιωρούμενου εργαλείου μεγέθους κειμένου / διάστιχου / αντίθεσης"
+
+#: includes/settings.php:56
+msgid "Readers’ choices are stored in their browser only."
+msgstr "Οι επιλογές των αναγνωστών αποθηκεύονται μόνο στον φυλλομετρητή τους."
+
+#: blocks/read-time/editor.js:22
+msgid "Reading time"
+msgstr "Χρόνος ανάγνωσης"
+
+#: blocks/read-time/editor.js:24
+msgid "Show clock icon"
+msgstr "Εμφάνιση εικονιδίου ρολογιού"
+
+#: blocks/read-time/editor.js:29
+msgid "Label before the time"
+msgstr "Ετικέτα πριν από τον χρόνο"
+
+#: blocks/read-time/editor.js:31
+msgid "e.g. Reading time:"
+msgstr "π.χ. Χρόνος ανάγνωσης:"
+
+#: blocks/read-time/editor.js:35
+msgid "Words per minute"
+msgstr "Λέξεις ανά λεπτό"
+
+#: blocks/read-time/block.json
+msgctxt "block title"
+msgid "Reading Time"
+msgstr "Χρόνος ανάγνωσης"
+
+#: blocks/read-time/block.json
+msgctxt "block description"
+msgid "Estimated minutes to read the current post."
+msgstr "Εκτιμώμενα λεπτά ανάγνωσης του τρέχοντος άρθρου."
+
+#: blocks/read-time/block.json
+msgctxt "block keyword"
+msgid "read time"
+msgstr "χρόνος ανάγνωσης"
+
+#: blocks/read-time/block.json
+msgctxt "block keyword"
+msgid "reading time"
+msgstr "λεπτά ανάγνωσης"
+
+#: blocks/read-time/block.json
+msgctxt "block keyword"
+msgid "minutes"
+msgstr "λεπτά"

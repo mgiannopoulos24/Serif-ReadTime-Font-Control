@@ -1,0 +1,25 @@
+{
+  "core": null,
+  "phpVersion": "8.1",
+  "plugins": [
+    "https://downloads.wordpress.org/plugin/plugin-check.zip"
+  ],
+  "mappings": {
+    "wp-content/themes/serif": "../Serif",
+    "wp-content/plugins/serif-readtime-font-control": "."
+  },
+  "port": 8888,
+  "testsEnvironment": false,
+  "config": {
+    "WP_DEBUG": true,
+    "WP_DEBUG_LOG": true,
+    "WP_DEBUG_DISPLAY": true,
+    "SCRIPT_DEBUG": true,
+    "WP_ENVIRONMENT_TYPE": "local",
+    "DISALLOW_FILE_EDIT": false,
+    "WP_DEVELOPMENT_MODE": "plugin"
+  },
+  "lifecycleScripts": {
+    "afterStart": "wp-env run cli wp theme activate serif && wp-env run cli wp plugin activate serif-readtime-font-control && wp-env run cli sh wp-content/themes/serif/scripts/seed.sh"
+  }
+}
